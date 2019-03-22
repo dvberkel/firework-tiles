@@ -2,7 +2,7 @@ TILE_WIDTH = 37;
 TILE_HEIGHT = 24;
 TILE_DEPTH = 16;
 CORNER_RADIUS = 3;
-STAMP_DEPTH = 3;
+STAMP_DEPTH = 2;
 
 tile_set() circle(2*TILE_HEIGHT/3);
 
@@ -24,7 +24,7 @@ module tile_set() {
 module stamped_tile(n) {
   difference() {
     tile(TILE_WIDTH, TILE_HEIGHT, TILE_DEPTH, CORNER_RADIUS);
-    translate([TILE_WIDTH/2, TILE_HEIGHT/2, TILE_DEPTH]) pattern(n) stamp(STAMP_DEPTH) children();
+    translate([TILE_WIDTH/2, TILE_HEIGHT/2, TILE_DEPTH]) stamp(STAMP_DEPTH) pattern(n) children();
   }
 }
 
@@ -48,28 +48,36 @@ module pattern(n) {
   }
   if (n == 2) {
     scaling = 0.4;
-    translate([-TILE_WIDTH/4, 0, 0]) scale(scaling) children();
-    translate([ TILE_WIDTH/4, 0, 0]) scale(scaling) children();
+    union() {
+      translate([-TILE_WIDTH/4, 0, 0]) scale(scaling) children();
+      translate([ TILE_WIDTH/4, 0, 0]) scale(scaling) children();
+    }
   }
   if (n == 3) {
     scaling = 0.25;
-    translate([-TILE_WIDTH/4, -TILE_HEIGHT/5, 0]) scale(scaling) children();
-    translate([            0,              0, 0]) scale(scaling) children();
-    translate([ TILE_WIDTH/4,  TILE_HEIGHT/5, 0]) scale(scaling) children();
+    union() {
+      translate([-TILE_WIDTH/4, -TILE_HEIGHT/5, 0]) scale(scaling) children();
+      translate([            0,              0, 0]) scale(scaling) children();
+      translate([ TILE_WIDTH/4,  TILE_HEIGHT/5, 0]) scale(scaling) children();
+    }
   }
   if (n == 4) {
     scaling = 0.25;
-    translate([-TILE_WIDTH/4,              0, 0]) scale(scaling) children();
-    translate([ TILE_WIDTH/4,              0, 0]) scale(scaling) children();
-    translate([            0, -TILE_HEIGHT/4, 0]) scale(scaling) children();
-    translate([            0,  TILE_HEIGHT/4, 0]) scale(scaling) children();
+    union() {
+      translate([-TILE_WIDTH/4,              0, 0]) scale(scaling) children();
+      translate([ TILE_WIDTH/4,              0, 0]) scale(scaling) children();
+      translate([            0, -TILE_HEIGHT/4, 0]) scale(scaling) children();
+      translate([            0,  TILE_HEIGHT/4, 0]) scale(scaling) children();
+    }
   }
   if (n == 5) {
     scaling = 0.2;
-    scale(0.5) children();
-    translate([-TILE_WIDTH/4, -TILE_HEIGHT/4, 0]) scale(scaling) children();
-    translate([-TILE_WIDTH/4,  TILE_HEIGHT/4, 0]) scale(scaling) children();
-    translate([ TILE_WIDTH/4, -TILE_HEIGHT/4, 0]) scale(scaling) children();
-    translate([ TILE_WIDTH/4,  TILE_HEIGHT/4, 0]) scale(scaling) children();
+    union() {
+      scale(0.4) children();
+      translate([-TILE_WIDTH/4, -TILE_HEIGHT/4, 0]) scale(scaling) children();
+      translate([-TILE_WIDTH/4,  TILE_HEIGHT/4, 0]) scale(scaling) children();
+      translate([ TILE_WIDTH/4, -TILE_HEIGHT/4, 0]) scale(scaling) children();
+      translate([ TILE_WIDTH/4,  TILE_HEIGHT/4, 0]) scale(scaling) children();
+    }
   }
 }
