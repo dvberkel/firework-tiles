@@ -4,13 +4,27 @@ TILE_DEPTH = 20;
 CORNER_RADIUS = 3;
 STAMP_DEPTH = 3;
 
+tile_set() circle(2*TILE_HEIGHT/3);
 
-stamped_tile(5) circle(TILE_DEPTH);
+module tile_set() {
+  xoffset = 1.2 * TILE_WIDTH;
+  yoffset = 1.2 * TILE_HEIGHT;
+  translate([0 * xoffset, 0 * yoffset, 0]) stamped_tile(1) children();
+  translate([1 * xoffset, 0 * yoffset, 0]) stamped_tile(1) children();
+  translate([0 * xoffset, 1 * yoffset, 0]) stamped_tile(1) children();
+  translate([1 * xoffset, 1 * yoffset, 0]) stamped_tile(2) children();
+  translate([0 * xoffset, 2 * yoffset, 0]) stamped_tile(2) children();
+  translate([1 * xoffset, 2 * yoffset, 0]) stamped_tile(3) children();
+  translate([0 * xoffset, 3 * yoffset, 0]) stamped_tile(3) children();
+  translate([1 * xoffset, 3 * yoffset, 0]) stamped_tile(4) children();
+  translate([0 * xoffset, 4 * yoffset, 0]) stamped_tile(4) children();
+  translate([1 * xoffset, 4 * yoffset, 0]) stamped_tile(5) children();
+}
 
 module stamped_tile(n) {
   difference() {
     tile(TILE_WIDTH, TILE_HEIGHT, TILE_DEPTH, CORNER_RADIUS);
-    translate([TILE_WIDTH/2, TILE_HEIGHT/2, TILE_DEPTH]) pattern(5) stamp(STAMP_DEPTH) children();
+    translate([TILE_WIDTH/2, TILE_HEIGHT/2, TILE_DEPTH]) pattern(n) stamp(STAMP_DEPTH) children();
   }
 }
 
