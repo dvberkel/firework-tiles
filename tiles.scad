@@ -4,7 +4,26 @@ TILE_DEPTH = 16;
 CORNER_RADIUS = 3;
 STAMP_DEPTH = 2;
 
-tile_set() circle(2*TILE_HEIGHT/3);
+stamped_tile(5) circle(2*TILE_HEIGHT/3);
+
+module star(radius) {
+  angle = 72; // 360/5;
+  union() {
+    polygon(
+      points = [for (i = [0 : 4]) [radius * cos(3 * i * angle), radius * sin(3 * i * angle)] ]
+    );
+    golden_ratio = (1 + sqrt(5))/2;
+    factor = 1/(1 + golden_ratio);
+    rotate([0, 0, angle/2]) pentagon(factor * radius);
+  }
+}
+
+module pentagon(radius) {
+  angle = 72; // 360/5;
+  polygon(
+    points = [for (i = [0 : 4]) [radius * cos(i * angle), radius * sin(i * angle)] ]
+  );
+}
 
 module tile_set() {
   xoffset = 1.2 * TILE_WIDTH;
