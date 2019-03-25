@@ -4,7 +4,7 @@ TILE_DEPTH = 16;
 CORNER_RADIUS = 3;
 STAMP_DEPTH = 2;
 
-stamped_tile(5) circle(2*TILE_HEIGHT/3);
+tile_set() circle(2*TILE_HEIGHT/3);
 
 module star(radius) {
   angle = 72; // 360/5;
